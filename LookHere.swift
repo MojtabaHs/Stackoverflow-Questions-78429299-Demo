@@ -14,6 +14,7 @@ extension Optional: Comparable where Wrapped: Comparable {
     var taskName: String
     var number: Int? // 👈 This is the optional we are going to predicate on
     var time: Date?
+    var isActive: Bool?
 
     init(id: String, taskName: String, number: Int?, time: Date?) {
         self.id = id
@@ -27,6 +28,7 @@ class DatabaseService {
     let numberPredicate = #Predicate<TodoModel> { 
         $0.number < 5 // 👈 This is a compare agains an optional
                       // This will not even compile without the above extension.
+        && $0.isActive == true
     }
 
     static var shared = DatabaseService()
